@@ -1,0 +1,23 @@
+# Local Keepalived configs containing VRRP auth_pass and private network IPs
+keepalived.conf
+*.conf
+config/
+!keepalived.conf.example
+
+# Environment files with secrets
+.env
+.env.*
+!.env.example
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Local build/test artifacts
+*.log
+*.pid

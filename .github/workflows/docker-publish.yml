@@ -33,10 +33,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Fetch latest Keepalived release version
+- name: Fetch latest Keepalived release version
         id: version
         run: |
-          TAG=$(curl -fsSL https://api.github.com/repos/acassen/keepalived/releases/latest | jq -r '.tag_name | ltrimstr("v")')
+          TAG=$(git ls-remote --tags --sort=-v:refname https://github.com/acassen/keepalived.git 'v*' \
+            | grep -v '\^{}' \
+            | head -n1 \
+            | sed 's|.*refs/tags/v||')
+          if [ -z "$TAG" ]; then
+            echo "ERROR: Could not resolve latest Keepalived tag" >&2
+            exit 1
+          fi
           echo "keepalived_version=${TAG}" >> "$GITHUB_OUTPUT"
           echo "Detected Keepalived version: ${TAG}"
 

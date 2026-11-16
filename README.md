@@ -1,12 +1,14 @@
-# Hardened Multi-Arch Keepalived (VRRP-Only)
+# Unofficial Hardened Multi-Arch Keepalived (`docker-keepalived`)
 
-Lightweight, multi-architecture (`linux/amd64`, `linux/arm64`) **Keepalived** container compiled from official upstream release tags (`acassen/keepalived`) with LVS/firewall bloat disabled and packaged on **Docker Hardened Images (`dhi.io/alpine-base:3.24`)**.
+> **Disclaimer:** This is an **unofficial**, community-maintained Docker image for Keepalived and is not affiliated with or endorsed by the upstream Keepalived project. All credit for Keepalived belongs to **Alexandre Cassen (`acassen`)** and the upstream contributors — visit the [official Keepalived website](https://www.keepalived.org/) or the [upstream GitHub repository](https://github.com/acassen/keepalived) for official documentation and source code.
+
+Lightweight, multi-architecture (`linux/amd64`, `linux/arm64`) **Keepalived** container compiled from official upstream release tags ([`acassen/keepalived`](https://github.com/acassen/keepalived)) with LVS/firewall bloat disabled and packaged on **Docker Hardened Images (`dhi.io/alpine-base:3.24`)**.
 
 ## Key Features
 * **Hardened Minimal Runtime:** Multi-stage build compiles Keepalived in `dhi.io/alpine-base:3.24-dev` and copies only the stripped `keepalived` binary and required shared libraries (`libnl-3`, `libssl`, `libcrypto`) into `dhi.io/alpine-base:3.24`.
 * **VRRP-Focused Build:** Compiled with `--disable-lvs`, `--disable-iptables`, and `--disable-nftables` for pure Virtual Router Redundancy Protocol (VRRP) failover with minimal attack surface.
 * **100% Compose-Driven or Custom Config:** Auto-generates a unicast VRRP configuration with HTTP health-check tracking directly from environment variables, or accepts a mounted `/etc/keepalived/keepalived.conf`.
-* **Automated Upstream Tracking:** Weekly GitHub Actions builds automatically pull the latest stable `acassen/keepalived` release tag and publish multi-arch images to Docker Hub and GHCR.
+* **Automated Upstream Tracking:** Weekly GitHub Actions builds automatically track the latest stable [`acassen/keepalived`](https://github.com/acassen/keepalived) release tag and publish multi-arch images to Docker Hub (`cvdl1357/keepalived`) and GHCR (`ghcr.io/cvdl1357/docker-keepalived`).
 
 ## Quick Start (`compose.yaml`)
 
@@ -89,3 +91,7 @@ If you mount a file to `/etc/keepalived/keepalived.conf`, the entrypoint skips e
     volumes:
       - ./keepalived.conf:/etc/keepalived/keepalived.conf:ro
 ```
+
+## Credits & Upstream Links
+* **Keepalived Project:** [https://www.keepalived.org/](https://www.keepalived.org/)
+* **Upstream Source Code:** [https://github.com/acassen/keepalived](https://github.com/acassen/keepalived) — created and maintained by **Alexandre Cassen (`acassen`)**.

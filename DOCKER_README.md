@@ -1,8 +1,11 @@
-# Hardened Multi-Arch Keepalived (VRRP-Only)
+# Unofficial Hardened Multi-Arch Keepalived (`docker-keepalived`)
 
-Lightweight, multi-architecture (`linux/amd64`, `linux/arm64`) **Keepalived** container compiled from official upstream release tags (`acassen/keepalived`) with LVS/firewall bloat disabled and packaged on **Docker Hardened Images (`dhi.io/alpine-base:3.24`)**.
+> **Disclaimer:** This is an **unofficial**, lightweight Docker image for Keepalived and is not affiliated with or endorsed by the upstream project. Full credit for Keepalived goes to **Alexandre Cassen (`acassen`)** and the upstream contributors — see [keepalived.org](https://www.keepalived.org/) and [github.com/acassen/keepalived](https://github.com/acassen/keepalived).
 
-* **Source & Documentation:** [github.com/cvdl1357/keepalived](https://github.com/cvdl1357/keepalived)
+Lightweight, multi-architecture (`linux/amd64`, `linux/arm64`) **Keepalived** container compiled from official upstream release tags ([`acassen/keepalived`](https://github.com/acassen/keepalived)) with LVS/firewall bloat disabled and packaged on **Docker Hardened Images (`dhi.io/alpine-base:3.24`)**.
+
+* **Packaging Source & Documentation:** [github.com/cvdl1357/docker-keepalived](https://github.com/cvdl1357/docker-keepalived)
+* **Upstream Project:** [keepalived.org](https://www.keepalived.org/) | [github.com/acassen/keepalived](https://github.com/acassen/keepalived)
 * **Architectures:** `linux/amd64`, `linux/arm64`
 * **Base Runtime:** `dhi.io/alpine-base:3.24`
 

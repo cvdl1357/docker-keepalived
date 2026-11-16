@@ -36,7 +36,7 @@ jobs:
       - name: Fetch latest Keepalived release version
         id: version
         run: |
-          TAG=$(git ls-remote --tags --sort=-v:refname [https://github.com/acassen/keepalived.git](https://github.com/acassen/keepalived.git) 'v*' \
+          TAG=$(git ls-remote --tags --sort=-v:refname https://github.com/acassen/keepalived.git 'v*' \
             | grep -v '\^{}' \
             | head -n1 \
             | sed 's|.*refs/tags/v||')

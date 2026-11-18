@@ -14,7 +14,7 @@ if [ ! -f "$CONF_FILE" ]; then
     : "${VRRP_PRIORITY:?VRRP_PRIORITY must be set (e.g., 100 for MASTER, 90 for BACKUP)}"
     : "${VRRP_UNICAST_SRC_IP:?VRRP_UNICAST_SRC_IP must be set}"
     : "${VRRP_UNICAST_PEER_IP:?VRRP_UNICAST_PEER_IP must be set}"
-    : "${VRRP_VIRTUAL_IP:?VRRP_VIRTUAL_IP must be set (e.g., 192.168.1.10/24)}"
+    : "${VRRP_VIRTUAL_IP:?VRRP_VIRTUAL_IP must be set (e.g., 192.168.1.10/24 or comma-separated list)}"
     : "${VRRP_AUTH_PASS:?VRRP_AUTH_PASS must be set (max 8 characters)}"
 
     : "${VRRP_ROUTER_NAME:=${HOSTNAME:-keepalived}}"
@@ -35,6 +35,15 @@ if [ ! -f "$CONF_FILE" ]; then
     if [ "$VRRP_NOPREEMPT" = "true" ]; then
         NOPREEMPT_LINE="    nopreempt"
     fi
+
+    VIP_LINES=""
+    OLD_IFS="$IFS"
+    IFS=','
+    for vip in $VRRP_VIRTUAL_IP; do
+        vip="$(echo "$vip" | tr -d ' ')"
+        [ -n "$vip" ] && VIP_LINES="${VIP_LINES}        ${vip}\n"
+    done
+    IFS="$OLD_IFS"
 
     HEALTHCHECK_SCRIPT_BLOCK=""
     TRACK_SCRIPT_BLOCK=""
@@ -92,8 +101,7 @@ ${NOPREEMPT_LINE}
     }
 
     virtual_ipaddress {
-        ${VRRP_VIRTUAL_IP}
-    }
+$(printf "%b" "$VIP_LINES")    }
 
 ${TRACK_SCRIPT_BLOCK}
 }
